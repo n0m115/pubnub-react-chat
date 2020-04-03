@@ -10,22 +10,16 @@ import {
 } from "features/conversations/conversationModel";
 import { focusOnConversation } from "features/currentConversation/currentConversationModel";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
-import { AddIcon } from "foundations/components/icons/AddIcon";
 import { ConversationItem } from "../ConversationItem";
 import {
   Wrapper,
-  Title,
-  AddButton,
   ConversationList
 } from "./MyConversations.style";
-import { fetchSpaces, fetchMembers } from "pubnub-redux";
+import { fetchMembers } from "pubnub-redux";
 import { getCurrentConversationMembers } from "features/conversationMembers/ConversationMembers/ConversationMembers";
 import { UserFragment } from "features/conversationMembers/MemberDescription/MemberDescription";
 import { leaveConversation } from "../leaveConversationCommand";
-import {
-  currentConversationViewDisplayed,
-  joinConversationViewDisplayed
-} from "features/layout/LayoutActions";
+import { currentConversationViewDisplayed } from "features/layout/LayoutActions";
 
 export interface ConversationFragment {
   id: string;
@@ -59,10 +53,6 @@ const MyConversations = () => {
   const currentConversationId: string = useSelector(getCurrentConversationId);
   const members: UserFragment[] = useSelector(getCurrentConversationMembers);
   const dispatch = useDispatch();
-  const openOverlay = () => {
-    dispatch(fetchSpaces());
-    dispatch(joinConversationViewDisplayed());
-  };
 
   if (conversationsById === undefined) {
     return <div>Loading...</div>;
@@ -70,12 +60,6 @@ const MyConversations = () => {
 
   return (
     <Wrapper>
-      <Title>
-        Conversations
-        <AddButton onClick={openOverlay}>
-          <AddIcon title="Join conversation" />
-        </AddButton>
-      </Title>
       <ConversationList>
         {conversations.map(conversation => (
           <ConversationItem

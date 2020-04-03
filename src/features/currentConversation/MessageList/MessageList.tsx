@@ -87,6 +87,7 @@ const MessageList = () => {
   const messages: MessageFragment[] = useSelector(
     getCurrentConversationMessages
   );
+  
   const wrapper = useRef<HTMLDivElement>(document.createElement("div"));
   const el = wrapper.current;
 

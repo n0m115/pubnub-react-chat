@@ -45,7 +45,6 @@ export const PoweredBy = styled.div`
 `;
 
 export const PoweredByPubNub = styled.div`
-  width: 180px;
   align-self: center;
   margin-top: 80px;
 `;

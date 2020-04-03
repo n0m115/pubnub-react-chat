@@ -8,8 +8,7 @@ import {
   Wrapper,
   Avatar,
   About,
-  UserName,
-  UserTitle
+  UserName
 } from "./MyUserDetails.style";
 
 export interface MyUserDetailsFragment {
@@ -38,7 +37,6 @@ const MyUserDetails = () => {
       </Avatar>
       <About>
         <UserName>{user.name}</UserName>
-        <UserTitle>{user.custom.title}</UserTitle>
       </About>
     </Wrapper>
   );

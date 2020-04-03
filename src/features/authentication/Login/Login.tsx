@@ -7,39 +7,42 @@ import {
   PoweredBy,
   Body
 } from "./Login.style";
-import PubNubLogo from "./PubNub_Logo.svg";
 import { login } from "../loginCommand";
 import { isLoggingIn } from "../authenticationModel";
 import { isUserLoggedIn } from "features/authentication/authenticationModel";
 import { useSelector } from "react-redux";
-import KnownIds from "config/knownUserIds.json";
 
 const Login = () => {
   const dispatch = useDispatch();
   const loggingIn = useSelector(isLoggingIn);
   const loggedIn = useSelector(isUserLoggedIn);
+  const getQueryStringValue = (name: string) => {
+    const params = new URLSearchParams(window.location.search);
+    
+    return params.get(name);
+  }
 
-  const loginWithRandomlyPickedUser = () => {
+  const loginUser = () => {
     if (loggingIn || loggedIn) {
       return;
     }
-    const userId = KnownIds[Math.floor(Math.random() * KnownIds.length)];
+    
+    const userId = String(getQueryStringValue('userID'));
     dispatch(login(userId));
   };
 
   if (!loggedIn && !loggingIn) {
-    loginWithRandomlyPickedUser();
+    loginUser();
   }
 
   return (
     <Wrapper>
       <Body>
-        <Button onClick={loginWithRandomlyPickedUser}>
+        <Button onClick={loginUser}>
           {loggingIn ? "Connecting" : "Connect"}
         </Button>
         <PoweredByPubNub>
-          <PoweredBy>Powered By</PoweredBy>
-          <img alt="PubNub" src={PubNubLogo} />
+          <PoweredBy>Powered By Wadic</PoweredBy>
         </PoweredByPubNub>
       </Body>
     </Wrapper>
