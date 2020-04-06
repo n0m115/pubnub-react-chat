@@ -13,7 +13,7 @@ const welcomeMessage: MessageFragment = {
     type: MessageType.Text,
     senderId: "PUBNUB-BOT",
     text:
-      "Welcome to Team Chat. 👋👋 Send a message now to start interacting with other users in the app. ⬇️"
+      "Welcome to Lawyers Chat Forum. Send a message now to start interacting with other lawyers."
   }
 };
 

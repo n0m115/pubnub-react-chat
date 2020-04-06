@@ -2,7 +2,7 @@ import { ThunkAction } from "main/storeTypes";
 import { loggingIn, loginSucceeded } from "./authenticationModel";
 import { fetchUserById, fetchMemberships, fetchMessageHistory } from "pubnub-redux";
 import { getConversationsByUserId } from "features/joinedConversations/joinedConversationModel";
-import { conversationId } from "config/defaultConversation.json";
+import { conversationId as DEFAULT_CONVERSATION } from "config/defaultConversation.json";
 
 export const login = (userId: string): ThunkAction<Promise<void>> => {
   return (dispatch, getState, context) => {
@@ -18,15 +18,18 @@ export const login = (userId: string): ThunkAction<Promise<void>> => {
     // with their information.
     const isLoginSuccessful = dispatch(fetchUserById({ userId }))
       .then(() => {
-        // fetch default conversation's messages
+        // fetch default conversation's messages for previous specified days & limit
+        // convert microseconds ts to nanoseconds ts
+        const end = String(Date.now() * 10000);
+        const date = new Date();
+        date.setDate(date.getDate() - 3);
+        const start = String(date.getTime() * 10000);
+
         return dispatch(fetchMessageHistory({
-          channel: conversationId, // add dynamic current space ID
-          /* reverse: false,
-          count: 50,
-          stringifiedTimeToken: true,
-          includeMeta: true,
-          start: '15858520266613600',
-          end: '15858520266613750' */
+          channel: DEFAULT_CONVERSATION,
+          count: 150,
+          start: start,
+          end: end
         }));
       })
       .then(() => {
