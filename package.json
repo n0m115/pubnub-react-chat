@@ -16,7 +16,7 @@
     "framer-motion": "^1.10.2",
     "invariant": "^2.2.4",
     "polished": "^3.5.1",
-    "pubnub": "^4.27.4",
+    "pubnub": "^7.4.0",
     "pubnub-react": "^2.0.0",
     "pubnub-redux": "0.0.8-beta",
     "react": "^16.13.1",
